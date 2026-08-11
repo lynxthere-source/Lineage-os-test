@@ -1,4 +1,4 @@
-name: Test Build Server
+name: Check Build Server
 
 on:
   workflow_dispatch:
@@ -8,8 +8,26 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - name: Clean unused software
+        run: |
+          echo "=== BEFORE ==="
+          df -h /
+
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /usr/local/julia
+          sudo rm -rf /usr/local/share/chromium
+          sudo rm -rf /opt/hostedtoolcache
+
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+
+          echo "=== AFTER ==="
+          df -h /
+
       - name: Check system
-        shell: bash
         run: |
           echo "=== CPU ==="
           nproc
