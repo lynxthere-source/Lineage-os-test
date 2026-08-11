@@ -9,12 +9,13 @@ jobs:
 
     steps:
       - name: Check system
+        shell: bash
         run: |
-          echo "CPU:"
+          echo "=== CPU ==="
           nproc
 
-          echo "RAM:"
+          echo "=== RAM ==="
           free -h
 
-          echo "Storage:"
+          echo "=== STORAGE ==="
           df -h
